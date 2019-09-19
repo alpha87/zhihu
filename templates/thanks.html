@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="card-item">
+        <div class="card">
+            <div class="columns">
+                <div class="column">
+                    <img src="{{ url_for("static", filename="image/weixin.jpg") }}" alt="微信赞赏码">
+                    <span class="thanks-item">微信赞赏码</span>
+                </div>
+                <div class="column">
+                    <img src="{{ url_for("static", filename="image/alipay.jpg") }}" alt="微信赞赏码">
+                    <span class="thanks-item">支付宝转账</span>
+                </div>
+                <div class="column">
+                    <img src="{{ url_for("static", filename="image/red.png") }}" alt="微信赞赏码">
+                    <span class="thanks-item">支付宝领取红包</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
