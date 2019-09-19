@@ -12,7 +12,6 @@
    - 数据库操作。
 """
 import re
-import time
 from requests import get
 from random import choice
 from pymongo import MongoClient
