@@ -22,10 +22,14 @@ def index():
     首页
     :return:
     """
-    _skip = request.args.get("skip", None)
-    skip = int(_skip) if _skip else 0
+    page = request.args.get("page", 1)
+    skip = (page-1)*10
     result = db.get_part_title(skip=skip)
-    return render_template("index.html", result=result)
+    return render_template(
+        "index.html",
+        result=result,
+        page=page
+    )
 
 
 @app.route("/thanks")
@@ -43,7 +47,14 @@ def share():
     我要提供
     :return:
     """
-    return render_template("share.html")
+    page = request.args.get("page", 1)
+    question_id = request.args.get("question", None)
+    if question_id:
+        return render_template(
+            "share.html",
+            question_id=question_id,
+            page=page
+        )
 
 
 @app.route("/detail")

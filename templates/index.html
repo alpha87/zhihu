@@ -1,61 +1,44 @@
 {% extends "base.html" %}
 
 {% block content %}
-        {% for item in result %}
-            <div class="card-item">
-                <div class="card">
-                    <div class="card-content">
-                        <p class="title">
-                            {{ item.title }}
-                        </p>
-                    </div>
-                    <footer class="card-footer">
-                        <p class="card-footer-item">
+    {% for item in result %}
+        <div class="card-item">
+            <div class="card">
+                <div class="card-content">
+                    <p class="title" style="font-size: 22px;">
+                        <a href="{{ url_for("detail", question_id=item.question_id, page=1) }}">{{ item.title }}</a>
+                    </p>
+                </div>
+                <footer class="card-footer">
+                    <p class="card-footer-item">
                         <span>
-                            {{ item.count }}
+                            数量：{{ item.count }}
                         </span>
-                        </p>
-                        <p class="card-footer-item">
+                    </p>
+                    <p class="card-footer-item">
                         <span>
-                            {{ item.close }}
+                            {% if item.close %}
+                                <small>已关闭</small>
+                            {% else %}
+                                <small>持续更新</small>
+                            {% endif %}
                         </span>
-                        </p>
-                        <p class="card-footer-item">
+                    </p>
+                    <p class="card-footer-item">
                         <span>
                             <a href="https://www.zhihu.com/question/{{ item.question_id }}">来源</a>
                         </span>
-                        </p>
-                    </footer>
-                </div>
+                    </p>
+                </footer>
             </div>
-        {% endfor %}
-        <div class="pagination-item">
-            <nav class="pagination" role="navigation" aria-label="pagination">
-                <a class="pagination-previous">Previous</a>
-                <a class="pagination-next">Next page</a>
-                <ul class="pagination-list">
-                    <li>
-                        <a class="pagination-link" aria-label="Goto page 1">1</a>
-                    </li>
-                    <li>
-                        <span class="pagination-ellipsis">&hellip;</span>
-                    </li>
-                    <li>
-                        <a class="pagination-link" aria-label="Goto page 45">45</a>
-                    </li>
-                    <li>
-                        <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a>
-                    </li>
-                    <li>
-                        <a class="pagination-link" aria-label="Goto page 47">47</a>
-                    </li>
-                    <li>
-                        <span class="pagination-ellipsis">&hellip;</span>
-                    </li>
-                    <li>
-                        <a class="pagination-link" aria-label="Goto page 86">86</a>
-                    </li>
-                </ul>
-            </nav>
         </div>
+    {% endfor %}
+    <div class="pagination-item">
+        <nav class="pagination" role="navigation" aria-label="pagination">
+            {% if page != 1 %}
+                <a class="pagination-previous">上一页</a>
+            {% endif %}
+            <a class="pagination-next">下一页</a>
+        </nav>
+    </div>
 {% endblock %}
