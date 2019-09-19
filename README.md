@@ -12,3 +12,12 @@
 
 如何部署见：[使用FLASK，NGINX，GUNICORN，SUPERVISOR完成网站部署](https://lijianxun.top/?p=28)
 
+------
+
+**功能**
+
+ - [ ] 首页异步加载展示数据
+ - [ ] 详情页使用 API 异步加载数据
+ - [ ] navbar 搜索框可以使用关键词搜索标题
+ - [ ] 提供页面搜索框以 get 请求提交用户链接
+ 
