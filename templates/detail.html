@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for i in range(3) %}
+    <article class="media">
+        <figure class="media-left">
+            <p class="image is-64x64">
+                <img src="https://img2.woyaogexing.com/2019/09/19/26a0e8aa78284f74a9b2224292d020ff!400x400.jpeg" alt>
+            </p>
+        </figure>
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>昵称</strong>
+                    <br>
+                    个性签名
+                    <br>
+                    <small>点赞数： 100</small>
+                </p>
+            </div>
+        </div>
+    </article>
+    <div class="img-list">
+        <img src="https://pic4.zhimg.com/80/v2-114e76d4568f6d3a4047ed3192bda00a_hd.jpg" alt>
+        <img src="https://pic4.zhimg.com/80/v2-114e76d4568f6d3a4047ed3192bda00a_hd.jpg" alt>
+        <img src="https://pic4.zhimg.com/80/v2-114e76d4568f6d3a4047ed3192bda00a_hd.jpg" alt>
+        <img src="https://pic4.zhimg.com/80/v2-114e76d4568f6d3a4047ed3192bda00a_hd.jpg" alt>
+        <img src="https://images.unsplash.com/photo-1564969982505-4c27fbfe7a1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt>
+    </div>
+    {% endfor %}
+{% endblock %}
