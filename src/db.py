@@ -12,7 +12,7 @@
    - 数据库操作。
 """
 import re
-
+import time
 from requests import get
 from random import choice
 from pymongo import MongoClient
@@ -67,6 +67,10 @@ class ZhihuData(object):
 
 if __name__ == '__main__':
     db = ZhihuData()
-    qid_list = []
+    with open("result.txt", "r") as f:
+        a = f.read()
+    qid_list = list(eval(a))
     for qid in qid_list:
+        time.sleep(1)
         db.insert_beauty_container("https://www.zhihu.com/question/{}".format(qid))
+        # print(qid)
