@@ -10,10 +10,11 @@
  - Description:
    - 网页入口。
 """
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from src.db import ZhihuData
 
 app = Flask(__name__)
-
+db = ZhihuData()
 
 @app.route('/')
 def index():
@@ -21,7 +22,10 @@ def index():
     首页
     :return:
     """
-    return render_template("index.html")
+    _skip = request.args.get("skip", None)
+    skip = int(_skip) if _skip else 0
+    result = db.get_part_title(skip=skip)
+    return render_template("index.html", result=result)
 
 
 @app.route("/thanks")
@@ -40,6 +44,15 @@ def share():
     :return:
     """
     return render_template("share.html")
+
+
+@app.route("/detail")
+def detail():
+    """
+    详情页
+    :return:
+    """
+    return render_template("detail.html")
 
 
 if __name__ == '__main__':
