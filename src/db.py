@@ -53,6 +53,8 @@ class ZhihuData(object):
                     "count": -1
                 })
         print("beauty_container == show_question [ 合并完成 ]")
+        items = self.show_question.find()
+        return [item["question_id"] for item in items]
 
     def insert_beauty_container(self, url: str):
         """
@@ -94,6 +96,72 @@ class ZhihuData(object):
         """
         result = list()
         items = self.show_question.find().sort("_id", -1).limit(10).skip(skip)
+        for item in items:
+            del item["_id"]
+            result.append(item)
+        return result
+
+    def update_one(self, question_id, answer_id, item):
+        """
+        更新已有数据
+        :param question_id: 话题 ID
+        :param answer_id: 答案 ID
+        :param item: 需要更新的文档
+        :return: 无
+        """
+
+        self.answer_items.update_one(
+            {"question_id": question_id,
+             "answer_id": answer_id},
+            {"$set": item}
+        )
+        print("单条数据更新")
+
+    def find_answer_id_count(self, answer_id):
+        """
+        查询当前 answer_id 下的回答数量，用来判断是否重复
+        :param answer_id: 答案 ID
+        :return: 答案 ID 存在的数量
+        """
+
+        item = self.answer_items.find({"answer_id": answer_id})
+        return item.count()
+
+    def insert_db(self, item):
+        """
+        插入数据
+        :param item: 需要插入的文档
+        :return: 无
+        """
+
+        self.answer_items.insert_one(item)
+        print("插入成功！")
+
+    def find(self, qid, _skip, find_type="default"):
+        """
+        查库，获取当前话题 ID 下的答案。通过 _skip 和 _limit 控制返回数量
+         - 倒序查询，保证先返回后添加的内容 ("_id", -1)
+         - 获赞顺序查询，优先展示高质量回答 ("vote_count", -1)
+        :param find_type: 排序类型 ：倒序查询，获赞顺序查询
+        :param qid: 话题 ID
+        :param _skip: 指针位置
+        :param _limit: 限制返回数量
+        :return: 答案文档
+        """
+
+        result = list()
+
+        # if find_type != "default":
+        #     # 按点赞数排序
+        #     items = self.answer_items.find(
+        #         {"question_id": int(qid)}).sort("vote_count", -1).limit(
+        #         10).skip(int(_skip))
+        # else:
+        #     # 按更新时间排序
+        items = self.answer_items.find(
+            {"question_id": int(qid)}).sort("_id", -1).limit(
+            10).skip(int(_skip))
+
         for item in items:
             del item["_id"]
             result.append(item)

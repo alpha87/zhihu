@@ -10,7 +10,6 @@
  - Description:
    - 知乎未被折叠回答的爬虫。
 """
-import os
 import time
 import json
 from random import randint, choice
@@ -18,7 +17,7 @@ from urllib.parse import quote
 
 import requests
 from lxml import etree
-from headers import HEADERS_LIST
+from .headers import HEADERS_LIST
 
 
 class ZhihuSpider(object):
