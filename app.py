@@ -63,7 +63,11 @@ def detail():
     详情页
     :return:
     """
-    return render_template("detail.html")
+    page = int(request.args.get("page", 1))
+    qid = request.args.get("question_id", 1)
+    skip = (page-1)*10
+    result = db.find(_skip=skip, qid=qid)
+    return render_template("detail.html", result=result)
 
 
 if __name__ == '__main__':

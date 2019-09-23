@@ -1,32 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {{ question_id }}
-    {% for i in range(3) %}
+    {% for item in result %}
     <article class="media">
         <figure class="media-left">
             <p class="image is-64x64">
-                <img src="https://img2.woyaogexing.com/2019/09/19/26a0e8aa78284f74a9b2224292d020ff!400x400.jpeg" alt>
+                <img src="{{ item.avatar_url }}" alt>
             </p>
         </figure>
         <div class="media-content">
             <div class="content">
                 <p>
-                    <strong>昵称</strong>
+                    <strong>{{ item.name }}</strong>
                     <br>
-                    个性签名
+                    {{ item.headline }}
                     <br>
-                    <small>点赞数： 100</small>
+                    <small>点赞数：{{ item.vote_count }}</small>
                 </p>
             </div>
         </div>
     </article>
     <div class="img-list">
-        <img src="https://pic4.zhimg.com/80/v2-114e76d4568f6d3a4047ed3192bda00a_hd.jpg" alt>
-        <img src="https://pic4.zhimg.com/80/v2-114e76d4568f6d3a4047ed3192bda00a_hd.jpg" alt>
-        <img src="https://pic4.zhimg.com/80/v2-114e76d4568f6d3a4047ed3192bda00a_hd.jpg" alt>
-        <img src="https://pic4.zhimg.com/80/v2-114e76d4568f6d3a4047ed3192bda00a_hd.jpg" alt>
-        <img src="https://images.unsplash.com/photo-1564969982505-4c27fbfe7a1c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt>
+    {% for img in item.content %}
+        <img src="{{ img }}" alt>
+    {% endfor %}
     </div>
     {% endfor %}
+    <div class="pagination-item">
+        <nav class="pagination" role="navigation" aria-label="pagination">
+            {% if page != 1 %}
+                <a class="pagination-previous">上一页</a>
+            {% endif %}
+            <a class="pagination-next">下一页</a>
+        </nav>
+    </div>
 {% endblock %}
