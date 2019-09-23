@@ -2,36 +2,43 @@
 
 {% block content %}
     {% for item in result %}
-    <article class="media">
-        <figure class="media-left">
-            <p class="image is-64x64">
-                <img src="{{ item.avatar_url }}" alt>
-            </p>
-        </figure>
-        <div class="media-content">
-            <div class="content">
-                <p>
-                    <strong>{{ item.name }}</strong>
-                    <br>
-                    {{ item.headline }}
-                    <br>
-                    <small>点赞数：{{ item.vote_count }}</small>
-                </p>
+        {% if item.content|length > 1 %}
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-64x64">
+                        <img src="{{ item.avatar_url }}" alt>
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>{{ item.name }}</strong>
+                            <br>
+                            {{ item.headline }}
+                            <br>
+                            <small>点赞数：{{ item.vote_count }}</small>
+                        </p>
+                    </div>
+                </div>
+            </article>
+            <div class="img-list">
+                {% for img in item.content %}
+                    <img src="{{ img }}" alt referrerpolicy="origin-when-cross-origin">
+                {% endfor %}
             </div>
-        </div>
-    </article>
-    <div class="img-list">
-    {% for img in item.content %}
-        <img src="{{ img }}" alt>
-    {% endfor %}
-    </div>
+        {% endif %}
     {% endfor %}
     <div class="pagination-item">
         <nav class="pagination" role="navigation" aria-label="pagination">
             {% if page != 1 %}
                 <a class="pagination-previous">上一页</a>
             {% endif %}
-            <a class="pagination-next">下一页</a>
+            <a class="pagination-next" href="{{ url_for("detail", question_id=result[0].question_id, page=2) }}">下一页</a>
         </nav>
     </div>
+{% endblock %}
+
+{% block myscript %}
+    var url = window.location.href;
+    console.log(url)
 {% endblock %}

@@ -13,8 +13,19 @@
 from flask import Flask, render_template, request
 from src.db import ZhihuData
 
+
+def after_request(response):
+    response.headers['Referer'] = 'https://www.zhihu.com/'
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    return response
+
+
 app = Flask(__name__)
+app.after_request(after_request)
 db = ZhihuData()
+
 
 @app.route('/')
 def index():
