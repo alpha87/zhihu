@@ -63,14 +63,7 @@ def share():
     我要提供
     :return:
     """
-    page = request.args.get("page", 1)
-    question_id = request.args.get("question", None)
-    if question_id:
-        return render_template(
-            "share.html",
-            question_id=question_id,
-            page=page
-        )
+    return render_template("share.html")
 
 
 @app.route("/detail")
