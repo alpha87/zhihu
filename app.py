@@ -10,6 +10,7 @@
  - Description:
    - 网页入口。
 """
+import math
 from flask import Flask, render_template, request
 from src.db import ZhihuData
 
@@ -33,13 +34,17 @@ def index():
     首页
     :return:
     """
-    page = request.args.get("page", 1)
+    page = int(request.args.get("page", 0))
+    page = page + 1
     skip = (page-1)*10
     result = db.get_part_title(skip=skip)
+    count = float(db.find_all_title_count())
+    max_page = math.ceil(count/10)
     return render_template(
         "index.html",
         result=result,
-        page=page
+        page=page,
+        max_page=max_page
     )
 
 
@@ -74,11 +79,15 @@ def detail():
     详情页
     :return:
     """
-    page = int(request.args.get("page", 1))
     qid = request.args.get("question_id", 1)
-    skip = (page-1)*10
+    page = int(request.args.get("page", 0))
+    page = page + 1
+    skip = (page - 1) * 10
     result = db.find(_skip=skip, qid=qid)
-    return render_template("detail.html", result=result)
+    count = float(db.find_qid_count(qid=qid))
+    max_page = math.ceil(count / 10)
+    return render_template("detail.html", result=result,
+                           page=page, max_page=max_page)
 
 
 if __name__ == '__main__':

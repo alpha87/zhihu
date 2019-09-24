@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-content">
                     <p class="title" style="font-size: 22px;">
-                        <a href="{{ url_for("detail", question_id=item.question_id, page=1) }}">{{ item.title }}</a>
+                        <a href="{{ url_for("detail", question_id=item.question_id) }}">{{ item.title }}</a>
                     </p>
                 </div>
                 <footer class="card-footer">
@@ -38,7 +38,9 @@
             {% if page != 1 %}
                 <a class="pagination-previous">上一页</a>
             {% endif %}
-            <a class="pagination-next">下一页</a>
+            {% if page < max_page %}
+                <a class="pagination-next" href="{{ url_for("index", page=page) }}">下一页</a>
+            {% endif %}
         </nav>
     </div>
 {% endblock %}

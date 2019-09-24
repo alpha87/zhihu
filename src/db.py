@@ -137,6 +137,24 @@ class ZhihuData(object):
         self.answer_items.insert_one(item)
         print("插入成功！")
 
+    def find_all_title_count(self):
+        """
+        查询标题总数
+        :return: 当前集合下，话题的总数
+        """
+
+        return self.show_question.estimated_document_count()
+
+    def find_qid_count(self, qid):
+        """
+        查询 qid，返回总数
+        :param qid: 话题 ID
+        :return: 话题 ID 存在的数量
+        """
+
+        item = self.answer_items.find({"question_id": int(qid)})
+        return item.count()
+
     def find(self, qid, _skip, find_type="default"):
         """
         查库，获取当前话题 ID 下的答案。通过 _skip 和 _limit 控制返回数量

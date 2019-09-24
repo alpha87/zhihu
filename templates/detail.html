@@ -33,7 +33,9 @@
             {% if page != 1 %}
                 <a class="pagination-previous">上一页</a>
             {% endif %}
-            <a class="pagination-next" href="{{ url_for("detail", question_id=result[0].question_id, page=2) }}">下一页</a>
+            {% if page < max_page %}
+                <a class="pagination-next" href="{{ url_for("detail", question_id=result[0].question_id, page=page) }}">下一页</a>
+            {% endif %}
         </nav>
     </div>
 {% endblock %}
