@@ -6,8 +6,7 @@
  - Author: Jianxun
  - File: db.py
  - Website: https://lijianxun.top
- - Email: jianxun2004@gmail.com
- - 关注微信小程序: 宅宅生活收藏夹
+ - 关注微信公众号: 宅宅生活收藏夹
  - Description:
    - 数据库操作。
 """
